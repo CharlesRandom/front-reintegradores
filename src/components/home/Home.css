@@ -1,0 +1,18 @@
+.home {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.home img {
+  width: 105px;
+  height: 122px;
+}
+
+.home h3 {
+  color: #989899;
+}
