@@ -20,8 +20,8 @@ export default class Home extends Component {
     return (
       <div>
         <Carousel vertical autoplay>
-          {/* <HomeLanding /> */}
-          {/* <HomeVideo onClick={onClick} /> */}
+          <HomeLanding />
+          <HomeVideo onClick={onClick} />
           <HomeObjetivos />
         </Carousel>
       </div>

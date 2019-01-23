@@ -1,8 +1,8 @@
 import axios from 'axios'
 import firebase from './firebase'
 
-const host = 'http://localhost:3000/pets'
-// const host = 'https://ironpetbnb.herokuapp.com/pets'
+// const host = 'http://localhost:3000/pets'
+const host = 'https://reintegradores.herokuapp.com/users'
 
 //upload Constancia Situación Fiscal and Acta Constitutiva
 export const uploadFile=(file)=>{
