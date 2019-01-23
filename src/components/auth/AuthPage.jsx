@@ -49,7 +49,7 @@ class AuthPage extends Component {
           getProfile(r._id)
           .then(r=>{
             localStorage.setItem('loggedUser',JSON.stringify(r))
-            this.props.history.push('/objetivos')
+            this.props.history.push('/obj')
           })
         }
         else {
