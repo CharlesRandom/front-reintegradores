@@ -4,27 +4,27 @@ import { Form, Icon, Input, Radio,  Button, Upload } from 'antd';
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 
-const SignupForm = ({signup, handleText, onChange, onRadioChange, current}) => {
+const SignupForm = ({signup, handleText, onChange, current}) => {
   return (
     <div className="auth-form">
       <h2>REGISTRO | Donatario</h2>
       <Form layout="vertical" method="POST" onSubmit={signup}>
         <div className="radio-container">
           <FormItem>
-            <RadioGroup name="donationOrigin" onChange={onRadioChange}>
+            <RadioGroup name="donationOrigin" onChange={handleText}>
               <Radio value="Público">Público</Radio><br/>
               <Radio value="Privado">Privado</Radio><br/>
             </RadioGroup>
           </FormItem>
           <FormItem>
             {current.donationOrigin && current.donationOrigin === "Público" ? 
-            <RadioGroup name="donationType" onChange={onRadioChange}>
+            <RadioGroup name="donationType" onChange={handleText}>
               <Radio value="Gub">Cooperación Gubernamental</Radio><br/>
               <Radio value="Int">Cooperación Internacional</Radio><br/>
             </RadioGroup>
             :
             current.donationOrigin &&
-            <RadioGroup name="donationType" defaultValue="Fil" onChange={onRadioChange}>
+            <RadioGroup name="donationType" onChange={handleText}>
               <Radio value="Fil">Filantropía</Radio><br/>
               <Radio value="IP">Iniciativa Privada</Radio><br/>
             </RadioGroup>
@@ -32,7 +32,7 @@ const SignupForm = ({signup, handleText, onChange, onRadioChange, current}) => {
           </FormItem>
           <FormItem>
             {current.donationOrigin &&
-            <RadioGroup name="person" onChange={onRadioChange}>
+            <RadioGroup name="person" onChange={handleText}>
               <Radio value="Física">Física</Radio><br/>
               <Radio value="Moral">Moral</Radio><br/>
             </RadioGroup>

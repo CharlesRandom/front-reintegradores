@@ -3,7 +3,8 @@ import { Spin, message } from 'antd';
 import './Auth.css'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
-import {signup, login, getProfile} from '../../services/auth' 
+import {signup, login, getProfile} from '../../services/auth'
+import {uploadFile} from '../../services/users'
 
 class AuthPage extends Component {
   state={
@@ -24,6 +25,7 @@ class AuthPage extends Component {
     signup(user)
       .then(r=>{
         if(r._id){
+          this.setState({loading:false})
           this.props.history.push('/login')
         }
         else {
@@ -47,7 +49,7 @@ class AuthPage extends Component {
           getProfile(r._id)
           .then(r=>{
             localStorage.setItem('loggedUser',JSON.stringify(r))
-            this.props.history.push('/profile')
+            this.props.history.push('/objetivos')
           })
         }
         else {
@@ -65,24 +67,29 @@ class AuthPage extends Component {
     const field = e.target.name
     const value = e.target.value
     user[field] = value
+    console.log(user)
     this.setState({user})
   }
 
-  onRadioChange = e => {
-    console.log(e.target.name)
-    console.log(e.target.value)
-    const {current} = this.state
-    const field = e.target.name
-    const value = e.target.value
-    current[field] = value
-    console.log(current)
-    this.setState({current})
+  onChange = (info,field) => {
+    const {user} = this.state
+    const file = info.file.originFileObj
+    uploadFile(file)
+      .then(link=>{
+        info.file.status = "done"
+        user[field] = link
+        this.setState({user})
+        console.log(user)
+      }).catch(e=>{
+        console.log('Something went wrong D: try adding the image again')
+        console.log(e)
+      })
   }
 
   render() {
       const {pathname} = this.props.location
-      const { signup, login, handleText, onRadioChange } = this
-      const {loading, current} = this.state
+      const { signup, login, handleText, onChange } = this
+      const {loading, user} = this.state
     return (
       <div className="auth">
         <div className="auth-container">
@@ -90,13 +97,13 @@ class AuthPage extends Component {
             {pathname==='/login'?
             <div>
               {!loading ? <LoginForm login={login} handleText={handleText}/> : <Spin tip="Loading...">
-              <LoginForm login={login} handleText={handleText}/>
+              {/* <LoginForm login={login} handleText={handleText}/> */}
               </Spin>}
             </div>
             :
             <div>
-              {!loading ? <SignupForm signup={signup} handleText={handleText} onRadioChange={onRadioChange} current={current}/> : <Spin tip="Loading...">
-              <SignupForm signup={signup} handleText={handleText} onRadioChange={onRadioChange}/>
+              {!loading ? <SignupForm signup={signup} handleText={handleText} onChange={onChange} current={user}/> : <Spin tip="Loading...">
+              {/* <SignupForm signup={signup} handleText={handleText} onChange={onChange}/> */}
               </Spin>}
             </div>
             }
